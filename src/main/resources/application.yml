@@ -1,0 +1,76 @@
+com:
+  nttdata:
+    fulfillment:
+      bpmn:
+        url: ${CAMUNDA_URL:http://localhost:8080/engine-rest/process-definition/key/}
+      cadence:
+        activity:
+          timeout: ${CADENCE_ACT_TIMEOUT:100}
+        domain: ${CADENCE_DOMAIN:sample}
+        host: ${CADENCE_HOST:localhost}
+        port: ${CADENCE_PORT:7933}
+        tasklist: ${CADENCE_TASKLIST:loadFlow}
+      http:
+        connection:
+          timeout: ${HTTP_CONN_TIMEOUT:100}
+        read:
+          timeout: ${HTTP_READ_TIMEOUT:100}
+        write:
+          timeout: ${HTTP_WRITE_TIMEOUT:100}
+      query:
+        rule:
+          som:
+            name: ${RULES_SOM_NAME:operations-som/dmnresult}
+        rules:
+          som:
+            url: ${RULES_SOM_URL:http://51.137.0.193/rulessom-fiberco/}
+        service:
+          order:
+            url: ${QUERY_SO_URL:http://localhost:8081/tmf-api/serviceOrdering/v4/serviceOrder/}
+      update:
+        workflow:
+          service:
+            order:
+              url: ${UPDATE_SO_URL:http://localhost:8081/tmf-api/serviceOrdering/v4/flowExecutionRef/modify/}
+    oauth:
+      authType: token
+      clientId: ossinternal
+      clientSecret: fd1b307d-2a57-46a7-98b6-a93063b86a37
+      grantType: client_credentials
+      scope: oss_api_internal
+      urlWellKnow: 'https://login.ugg.tech/ugg-iam/oidc/.well-known                                               '
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+    loggers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: httptrace,loggers,health,metrics
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+server:
+  port: 8082
+spring:
+  application:
+    name: Archetype
+swagger:
+  info:
+    controller:
+      description: Endpoints for CRUD operations on TEST
+    description: Archetype for TEST
+    package: com.nttdata.xxxx
+    title: Archetype
+    version: 1.0
+  server:
+    listOfServer: '{''http://localhost:8082/ --- Development Environment'',''http://pre-production-api.example.com
+      --- PreProduction Environment'',''http://production-api.example.com --- Production
+      Environment''}'
+  tags:
+    controller: TestController
