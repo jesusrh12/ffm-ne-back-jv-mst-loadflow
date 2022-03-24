@@ -43,7 +43,7 @@ jobs:
           LC_ALL: "ru_RU.UTF-8"
   publish-artifact:
     runs-on: ubuntu-latest
-    needs: [unit-test,build]
+    needs: [unit-test,build,sonarqube]
     permissions: 
       contents: read
       packages: write
