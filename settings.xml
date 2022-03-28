@@ -17,7 +17,7 @@
         </repository>
         <repository>
           <id>github</id>
-          <url>https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-lib-commons</url>
+          <url>https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-mst-loadflow</url>
           <snapshots>
             <enabled>true</enabled>
           </snapshots>
