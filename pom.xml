@@ -90,9 +90,9 @@
 	
 	<distributionManagement>
        	 <repository>
-        	  <id>commons</id>
-          	<name>commons</name>
-          	<url>https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-lib-commons</url>
+        	 <id>load-flow</id>
+          	<name>load-flow</name>
+          	<url>https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-mst-loadflow</url>
          </repository>
         </distributionManagement>
 
