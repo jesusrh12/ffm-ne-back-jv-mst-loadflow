@@ -4,6 +4,17 @@ on:
     branches:
       - main # or the name of your main branch
 jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2         
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Test
+        run: mvn install
   unit-test:
     runs-on: ubuntu-latest
     steps:
