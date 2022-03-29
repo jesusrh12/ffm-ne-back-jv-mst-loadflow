@@ -17,13 +17,13 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
           aws-secret-access-key: ${{ secrets.ECR_SECRET_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}         
+          aws-region: us-east-2        
       - name: Amazon ECR "Login" Action for GitHub Actions
         uses: aws-actions/amazon-ecr-login@v1
       - name: login ecr
         run: aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 837232691946.dkr.ecr.us-east-2.amazonaws.com
       - name: docker compose
         #run: docker build -t squad-integration . 
-        run: docker build - < Dockerfile
+        run: docker build -t my-java-app
       - name: docker images
         run: docker images
