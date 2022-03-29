@@ -18,4 +18,4 @@ jobs:
           GITHUB_USERNAME: ${{ secrets.USER_NAME }}
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         #run: mvn --settings settings.xml clean test
-        run: mvn source:jar install package -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-lib-commons'
+        run: mvn source:jar clean test -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-lib-commons'
