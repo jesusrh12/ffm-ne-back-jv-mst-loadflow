@@ -24,3 +24,27 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           LC_ALL: "ru_RU.UTF-8"
+   
+   publish-artifact:
+    runs-on: ubuntu-latest
+    needs: [dependencies]
+    permissions: 
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Set up Maven Settings for deploy
+        uses: s4u/maven-settings-action@v2.1.1
+      - name: Publish package
+      #  run: mvn --batch-mode deploy
+        env:
+          GITHUB_USERNAME: ${{ secrets.USER_NAME }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+       # run: mvn --settings settings.xml --file pom.xml deploy
+       # run: mvn clean source:jar deploy -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -Dmaven.install.skip=true -DdeplyAtEnd=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-lib-commons'
+        run: mvn source:jar deploy -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-mst-loadflow'
+ 
