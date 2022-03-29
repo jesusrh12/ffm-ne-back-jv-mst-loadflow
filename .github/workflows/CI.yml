@@ -36,7 +36,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Test
-        run: mvn --batch-mode test -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-mst-loadflow'
+        run: mvn source:jar --batch-mode test -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-mst-loadflow'
   build:
     runs-on: ubuntu-latest
     needs: [dependencies, unit-test]
@@ -48,6 +48,6 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Build
-        run: mvn clean install -DskipTests=true -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-mst-loadflow'
+        run: mvn source:jar clean install -DskipTests=true -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-mst-loadflow'
       - name: Lista
         run: ls -la
