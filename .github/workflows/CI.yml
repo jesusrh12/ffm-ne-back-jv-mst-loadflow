@@ -25,10 +25,21 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           LC_ALL: "ru_RU.UTF-8"
 
-
+  unit-test:
+    runs-on: ubuntu-latest
+    needs: dependencies
+    steps:
+      - uses: actions/checkout@v2         
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Test
+        run: mvn --batch-mode test -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-mst-loadflow'
   build:
     runs-on: ubuntu-latest
-    needs: [dependencies]
+    needs: [dependencies, unit-test]
     steps:
       - uses: actions/checkout@v2         
       - name: Set up JDK
@@ -37,6 +48,6 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Build
-        run: mvn clean install -DskipTests=true
+        run: mvn clean install -DskipTests=true -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-mst-loadflow'
       - name: Lista
         run: ls -la
