@@ -24,3 +24,30 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           LC_ALL: "ru_RU.UTF-8"
+
+  unit-test:
+    runs-on: ubuntu-latest
+    needs: [dependencies]
+    steps:
+      - uses: actions/checkout@v2         
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Test
+        run: mvn --batch-mode test
+  build:
+    runs-on: ubuntu-latest
+    needs: [dependencies, unit-test]
+    steps:
+      - uses: actions/checkout@v2         
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Build
+        run: mvn clean install -DskipTests=true
+      - name: Lista
+        run: ls -la
