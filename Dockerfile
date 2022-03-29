@@ -1,4 +1,5 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ADD build/libs/*.jar app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
+FROM openjdk:11
+COPY . /usr/src/myapp
+WORKDIR /usr/src/myapp
+RUN javac Main.java
+CMD ["java", "Main"]
