@@ -119,6 +119,9 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					< buildArgs > 
+					   < JAR_FILE >objetivo/${proyecto.build.finalName}.jar</ JAR_FILE > 
+					</ buildArgs 
 				</configuration>
 			</plugin>
 			<!-- Code coverage -->
