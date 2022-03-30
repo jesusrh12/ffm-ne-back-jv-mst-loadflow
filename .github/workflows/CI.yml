@@ -6,10 +6,6 @@ on:
 jobs: 
   build-artifact:
     runs-on: ubuntu-latest
-    env: 
-      COMPOSE_FILE: ./Dockerfile
-      COMPOSE_DOCKER_CLI_BUILD: 1
-      DOCKER_BUILDKIT: 1
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials for build and deploy
