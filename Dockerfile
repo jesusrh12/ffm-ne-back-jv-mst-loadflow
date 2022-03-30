@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11:ubi
-RUN mkdir /opt/app
-COPY japp.jar /opt/app
-CMD ["java", "-jar", "/opt/app/japp.jar"]
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+ADD build/libs/*.jar app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
