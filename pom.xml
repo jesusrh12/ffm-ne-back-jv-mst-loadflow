@@ -113,15 +113,12 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					< buildArgs >
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
-					</excludes> 
-					   < JAR_FILE >objetivo/${proyecto.build.finalName}.jar</ JAR_FILE > 
-					</ buildArgs 
+					</excludes>  
 				</configuration>
 			</plugin>
 			<!-- Code coverage -->
