@@ -24,6 +24,6 @@ jobs:
         run: aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 837232691946.dkr.ecr.us-east-2.amazonaws.com
       - name: docker compose
         #run: docker build -t squad-integration . 
-        run: docker build -t japp .
+        run: docker build -t < Dockerfile jesusrh12/ffm-ne-back-jv-mst-loadflow:v1 .
       - name: docker images
         run: docker images
