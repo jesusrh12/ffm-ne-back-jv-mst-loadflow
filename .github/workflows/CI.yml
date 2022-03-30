@@ -22,8 +22,12 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
       - name: login ecr
         run: aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 837232691946.dkr.ecr.us-east-2.amazonaws.com
-      - name: docker compose
-        #run: docker build -t squad-integration . 
-        run: docker build -t < Dockerfile jesusrh12/ffm-ne-back-jv-mst-loadflow:v1 .
+      - name: docker build
+        run: docker build -t squad-integration . 
+        #run: docker build -t < Dockerfile jesusrh12/ffm-ne-back-jv-mst-loadflow:v1 .
       - name: docker images
         run: docker images
+      - name: docker tag
+        run: docker tag squad-integration:latest 837232691946.dkr.ecr.us-east-2.amazonaws.com/squad-integration:latest
+      - name: docker push
+        run: docker push 837232691946.dkr.ecr.us-east-2.amazonaws.com/squad-integration:latest
