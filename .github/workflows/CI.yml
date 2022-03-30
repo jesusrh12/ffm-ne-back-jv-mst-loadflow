@@ -25,5 +25,5 @@ jobs:
         run: docker images
       - name: docker tag
         run: docker tag squad-integration:latest 837232691946.dkr.ecr.us-east-2.amazonaws.com/squad-integration:latest
-      - name: docker push
+      - name: docker push 1
         run: docker push 837232691946.dkr.ecr.us-east-2.amazonaws.com/squad-integration:latest
