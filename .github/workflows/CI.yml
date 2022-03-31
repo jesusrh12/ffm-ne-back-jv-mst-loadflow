@@ -24,7 +24,7 @@ jobs:
         run: |
          bash ./build/git_update.sh -v major
          
-	    - name: Build, Tag, and Push the Image to Amazon ECR
+      - name: Build, Tag, and Push the Image to Amazon ECR
         id: build-image
         env:
           ECR_REGISTRY: aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 837232691946.dkr.ecr.us-east-2.amazonaws.com
