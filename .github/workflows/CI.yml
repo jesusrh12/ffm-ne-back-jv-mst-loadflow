@@ -6,24 +6,20 @@ jobs:
   build-artifact:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-	  
+      - uses: actions/checkout@v2  
       - name: Configure AWS Credentials for build and deploy
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
           aws-secret-access-key: ${{ secrets.ECR_SECRET_KEY }}
-          aws-region: us-east-2      
-		  
+          aws-region: us-east-2        
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-
       - name: Automatic Tagging of Releases
         id: increment-git-tag
         run: |
-         bash ./build/git_update.sh -v major
-         
+         bash ./build/git_update.sh -v major 
       - name: Build, Tag, and Push the Image to Amazon ECR
         id: build-image
         env:
