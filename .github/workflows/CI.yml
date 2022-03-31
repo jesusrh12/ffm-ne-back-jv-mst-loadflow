@@ -20,12 +20,12 @@ jobs:
         run:  echo "TAG=$(echo git describe --exact-match --tags $(git log -n1 --pretty='%h'))" >> $GITHUB_ENV
       - name: use env var
         run: echo ${{ env.TAG }}
-      - name: Build, Tag, and Push the Image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: squad-integration 
-          IMAGE_TAG: ${{ env.TAG }}
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+     # - name: Build, Tag, and Push the Image to Amazon ECR
+     #   id: build-image
+     #   env:
+     #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+     #     ECR_REPOSITORY: squad-integration 
+     #     IMAGE_TAG: ${{ env.TAG }}
+     #   run: |
+     #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+     #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
