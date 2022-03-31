@@ -34,7 +34,7 @@ jobs:
           script: |
             return sed -n 6p pom.xml | sed -e 's/<version>//g' | sed -e 's/<\/version>//g');
       - name: Echo
-        run: echo ${{ steps.tag.outputs.result 
+        run: echo ${{ steps.tag.outputs.result }}
      # - name: Build, Tag, and Push the Image to Amazon ECR
      #   id: build-image
      #   env:
