@@ -20,6 +20,9 @@ jobs:
         run:  echo "TAG=`$(echo git describe --exact-match --tags $(git log -n1 --pretty='%h'))`" >> $GITHUB_ENV
       - name: use env var
         run: echo ${{ env.TAG }}
+      - name: Get the version 
+        id: get_version 
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
      # - name: Build, Tag, and Push the Image to Amazon ECR
      #   id: build-image
      #   env:
