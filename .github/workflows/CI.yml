@@ -23,9 +23,12 @@ jobs:
         run: echo ${{ env.TAG }}
       - name: Get the version 
         id: get_version 
-        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF##*/ | cut -d / -f 3)
+        run: echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
       - name: get 2
-        run: echo ${{ steps.get_version.outputs.VERSION }}
+        run: |
+           echo $SOURCE_BRANCH
+        env:
+            SOURCE_BRANCH: ${{ steps.branch_name.outputs.SOURCE_BRANCH }}      
       - name: Extract tag name
         id: tag
         uses: actions/github-script@0.2.0
