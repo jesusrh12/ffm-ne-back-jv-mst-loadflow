@@ -17,7 +17,8 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       - name: set up env var
-        run:  echo "TAG=`$(echo git describe --exact-match --tags $(git log -n1 --pretty='%h'))`" >> $GITHUB_ENV
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        #run:  echo "TAG=`$(echo git describe --exact-match --tags $(git log -n1 --pretty='%h'))`" >> $GITHUB_ENV
       - name: use env var
         run: echo ${{ env.TAG }}
       - name: Get the version 
