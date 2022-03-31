@@ -23,7 +23,7 @@ jobs:
       - name: Build, Tag, and Push the Image to Amazon ECR
         id: build-image
         env:
-          ECR_REGISTRY: aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 837232691946.dkr.ecr.us-east-2.amazonaws.com
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: squad-integration 
           IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
         run: |
