@@ -17,8 +17,8 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       - name: set up env var
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-        #run:  echo "TAG=`$(echo git describe --exact-match --tags $(git log -n1 --pretty='%h'))`" >> $GITHUB_ENV
+        #run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        run:  echo "TAG=`$(echo git describe --exact-match --tags $(git log -n1 --pretty='%h'))`" >> $GITHUB_ENV
       - name: use env var
         run: echo ${{ env.TAG }}
       - name: Get the version 
@@ -26,6 +26,15 @@ jobs:
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF##*/ | cut -d / -f 3)
       - name: get 2
         run: echo ${{ steps.get_version.outputs.VERSION }}
+      - name: Extract tag name
+        id: tag
+        uses: actions/github-script@0.2.0
+        with:
+          github-token: ${{ secrets.TOKEN_GITHUB }}
+          script: |
+            return sed -n 6p pom.xml | sed -e 's/<version>//g' | sed -e 's/<\/version>//g');
+      - name: Echo
+        run: echo ${{ steps.tag.outputs.result 
      # - name: Build, Tag, and Push the Image to Amazon ECR
      #   id: build-image
      #   env:
