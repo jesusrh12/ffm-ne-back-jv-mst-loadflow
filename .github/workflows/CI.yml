@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: prueba
-        run: git fetch --prune --unshallow
+        run: git fetch --prune --unshallow --tags
       - name: Get version and tag
         run: |
             echo "CURRENT_VERSION=$version" >> $GITHUB_ENV
