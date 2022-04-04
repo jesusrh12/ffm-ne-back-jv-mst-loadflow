@@ -14,9 +14,11 @@ jobs:
       - name: nada
         id: tag3
         run: echo "LATEST_TAG=$(git describe --tag --abbrev=0 | cut -c 2-)" >> $GITHUB_ENV
+      - name: use env var
+        run: echo ${{ env.LATEST_TAG }}
       - name: Debug
         env: 
-          IMAGE_TAG: ${{steps.LATEST_TAG.outputs.LATEST_TAG}}
+          IMAGE_TAG2: ${{steps.LATEST_TAG.outputs.LATEST_TAG}}
         run: echo "Works. Tag is ${GITHUB_REF##*/}"
       - name: Use tag
         run: echo ${{steps.tag.outputs.tag}}
