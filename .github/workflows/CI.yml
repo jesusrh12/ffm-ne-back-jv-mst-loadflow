@@ -16,6 +16,8 @@ jobs:
       - name: Debug
         id: tag
         run: echo "Works. Tag is ${GITHUB_REF##*/}"
+      - name: Use tag
+        run: echo ${{steps.tag.outputs.tag}}
     
       - name: Configure AWS Credentials for build and deploy
         uses: aws-actions/configure-aws-credentials@v1
