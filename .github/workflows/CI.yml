@@ -10,6 +10,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Debug
         run: echo "Works. Tag is ${GITHUB_REF##*/}"
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
       - name: Build, Tag, and Push the Image to Amazon ECR
         id: build-image
         env:
