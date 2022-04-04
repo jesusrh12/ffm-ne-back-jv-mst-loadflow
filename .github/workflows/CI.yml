@@ -15,8 +15,8 @@ jobs:
         id: tag3
         run: echo "LATEST_TAG=$(git describe --tag --abbrev=0 | cut -c 2-)" >> $GITHUB_ENV
       - name: Debug
-        env:
-         IMAGE_TAG2: ${steps.tag3.outputs.tag3}}
+        env: 
+          IMAGE_TAG: ${{steps.tag3.outputs.tag3}}
         run: echo "Works. Tag is ${GITHUB_REF##*/}"
       - name: Use tag
         run: echo ${{steps.tag.outputs.tag}}
