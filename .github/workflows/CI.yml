@@ -12,9 +12,5 @@ jobs:
       - name: Get version and tag
         run:  echo "LATEST_TAG=$(git describe --tag --abbrev=0 | cut -c 2-)" >> $GITHUB_ENV
       - name: Debug
+        id: git-tag
         run: echo "Works. Tag is ${GITHUB_REF##*/}"
-      - name: Get tag
-        id: tag
-        uses: dawidd6/action-get-tag@v1
-      - name: Use tag
-        run: echo ${{steps.tag.outputs.tag}}
