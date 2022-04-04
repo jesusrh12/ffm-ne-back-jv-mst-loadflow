@@ -12,13 +12,13 @@ jobs:
       - name: versiones tag
         run: git fetch --prune --unshallow --tags
       - name: nada
-        run: echo "LATEST_TAG2=$(git describe --tag --abbrev=0 | cut -c 2-)" >> $GITHUB_ENV
+        run: echo "LATEST_TAG=$(git describe --tag --abbrev=0 | cut -c 2-)" >> $GITHUB_ENV
       - name: Debug
         id: tag
         run: echo "Works. Tag is ${GITHUB_REF##*/}"
       - name: Use tag
         env:
-         IMAGE_TAG2: ${{steps.tag.outputs.tag}}
+         IMAGE_TAG2: ${{steps.LATEST_TAG.outputs.LATEST_TAG}}
         id: tag2
         run: echo ${{steps.tag.outputs.tag}}
     
