@@ -19,7 +19,7 @@ jobs:
          IMAGE_TAG2: ${{steps.tag3.outputs.tag3}}
         run: echo "Works. Tag is ${GITHUB_REF##*/}"
       - name: Use tag
-        run: echo ${{steps.tag.outputs.tag}}
+        run: echo ${{steps./usr/bin/bash/LATEST_TAG.outputs./usr/bin/bash/LATEST_TAG}}
     
       - name: Configure AWS Credentials for build and deploy
         uses: aws-actions/configure-aws-credentials@v1
