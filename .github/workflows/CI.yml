@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: prueba
+        run: git fetch --prune --unshallow
       - name: Get version and tag
         run: |
             echo "CURRENT_VERSION=$version" >> $GITHUB_ENV
