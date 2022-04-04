@@ -18,7 +18,7 @@ jobs:
         run: echo "Works. Tag is ${GITHUB_REF##*/}"
       - name: Use tag
         env:
-         IMAGE_TAG: ${{steps.tag.outputs.tag}}
+         IMAGE_TAG2: ${{steps.tag.outputs.tag}}
         id: tag2
         run: echo ${{steps.tag.outputs.tag}}
     
