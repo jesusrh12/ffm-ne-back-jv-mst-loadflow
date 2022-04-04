@@ -9,9 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: versiones tag
-        run: git fetch --prune --unshallow --tags
-      - name: nada
+      - name: LATEST TAG
         run: echo "LATEST_TAG=$(git describe --tag --abbrev=0 | cut -c 2-)" >> $GITHUB_ENV
       - name: use env var
         run: echo ${{ env.LATEST_TAG }}
