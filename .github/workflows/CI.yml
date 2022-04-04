@@ -7,13 +7,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Tag
-        id: git-tag
-        run: echo "Works. Tag is ${GITHUB_REF##*/}"
+      - name: Configure AWS Credentials for build and deploy
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_SECRET_KEY }}
+          aws-region: us-east-2
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-
+      - name: Tag
+        id: git-tag
+        run: echo "Works. Tag is ${GITHUB_REF##*/}"
       - name: Build, Tag, and Push the Image to Amazon ECR
         id: build-image
         env:
