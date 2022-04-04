@@ -18,7 +18,7 @@ jobs:
         run: echo ${{ env.LATEST_TAG }}
       - name: Debug
         env: 
-          IMAGE_TAG2: ${{steps.tag5.outputs.tag5}}
+          IMAGE_TAG2: ${{env.LATEST_TAG}}
         run: echo "Works. Tag is ${GITHUB_REF##*/}"
       - name: Use tag
         run: echo ${{steps.tag.outputs.tag}}
