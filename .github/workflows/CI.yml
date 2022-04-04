@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set output
-        id: vars
-        run: echo t=$(git describe --tags `git rev-list --tags --max-count=1`)
+      - name: Get version and tag
+        run: |
+            version=$(node -p "require('./package.json').version")
+            echo "CURRENT_VERSION=$version" >> $GITHUB_ENV
+            echo "LATEST_TAG=$(git describe --tag --abbrev=0 | cut -c 2-)" >> $GITHUB_ENV
