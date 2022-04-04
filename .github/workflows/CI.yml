@@ -13,7 +13,7 @@ jobs:
         run: git fetch --prune --unshallow --tags
       - name: nada
         id: tag3
-        run: echo "LATEST_TAG=$(git describe --tag --abbrev=0 | cut -c 2-)" 
+        run: echo "LATEST_TAG=$(git describe --tag --abbrev=0 | cut -c 2-)" >> $GITHUB_ENV
       - name: Debug
         env:
          IMAGE_TAG2: ${steps.tag3.outputs.tag3}}
