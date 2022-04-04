@@ -3,47 +3,13 @@ on:
     branches:
       - main # or the name of your main branch
 jobs: 
-  build-artifact:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2  
-      - name: Configure AWS Credentials for build and deploy
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
-          aws-secret-access-key: ${{ secrets.ECR_SECRET_KEY }}
-          aws-region: us-east-2        
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-      - name: set up env var
-        #run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-        run:  echo "TAG=`$(echo git describe --exact-match --tags $(git log -n1 --pretty='%h'))`" >> $GITHUB_ENV
-      - name: use env var
-        run: echo ${{ env.TAG }}
-      - name: Get the version 
-        id: get_version 
-        run: echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
-      - name: get 2
+      - uses: actions/checkout@v2
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Test
         run: |
-           echo $SOURCE_BRANCH
-        env:
-            SOURCE_BRANCH: ${{ steps.branch_name.outputs.SOURCE_BRANCH }}      
-      - name: Extract tag name
-        id: tag
-        uses: actions/github-script@0.2.0
-        with:
-          github-token: ${{ secrets.TOKEN_GITHUB }}
-          script: |
-            return sed -n 6p pom.xml | sed -e 's/<version>//g' | sed -e 's/<\/version>//g');
-      - name: Echo
-        run: echo ${{ steps.tag.outputs.result }}
-     # - name: Build, Tag, and Push the Image to Amazon ECR
-     #   id: build-image
-     #   env:
-     #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-     #     ECR_REPOSITORY: squad-integration 
-     #     IMAGE_TAG: ${{ env.TAG }}
-     #   run: |
-     #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-     #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}
