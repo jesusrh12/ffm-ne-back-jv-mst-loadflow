@@ -7,6 +7,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Tag
-        id: git-tag
         run: echo "Works. Tag is ${GITHUB_REF##*/}"
 
