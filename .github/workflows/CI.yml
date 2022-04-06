@@ -3,6 +3,11 @@ on:
   label:
     types:
       - created
+  push:
+    branches:
+      - main # or the name of your main branch
+    tags:        
+      - v1.*
 jobs: 
    Test-sonar:
     runs-on: ubuntu-latest
