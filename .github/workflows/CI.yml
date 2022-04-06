@@ -1,10 +1,8 @@
 name: Build
 on:
-  push:
-    branches:
-      - main # or the name of your main branch
-    tags:
-      - v*
+  label:
+    types:
+      - created
 jobs: 
    Test-sonar:
     runs-on: ubuntu-latest
