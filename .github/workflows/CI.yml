@@ -1,8 +1,5 @@
 name: Build
 on:
-  label:
-    types:
-      - created
   push:
     branches:
       - main # or the name of your main branch
