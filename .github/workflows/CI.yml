@@ -4,7 +4,7 @@ on:
     branches:
       - main # or the name of your main branch
     tags:
-      - v*
+      - v
 jobs: 
    Test-sonar:
     runs-on: ubuntu-latest
