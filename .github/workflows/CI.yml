@@ -1,10 +1,10 @@
-name: Build
-on:
- label:
-  types: [created, deleted]
-  #push:
-    branches:
-      - main # or the name of your main branch
+#name: Build
+#on:
+# label:
+#  types: [created, deleted]
+#  push:
+#    branches:
+#      - main # or the name of your main branch
 
 jobs: 
    Test-sonar:
