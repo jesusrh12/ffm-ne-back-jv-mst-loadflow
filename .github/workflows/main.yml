@@ -1,0 +1,7 @@
+name: Pull-azure
+on:
+ label:
+  types: [created, deleted]
+  push:
+    branches:
+      - main # or the name of your main branch
