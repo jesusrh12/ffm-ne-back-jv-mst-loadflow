@@ -21,6 +21,9 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
         
       - name: ecr
-        run: aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 837232691946.dkr.ecr.us-east-2.amazonaws.com
-      - name: docker pull
-        run: docker pull 837232691946.dkr.ecr.us-east-2.amazonaws.com/squad-integration:1.7
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: squad-integration 
+        run: docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.7
+      - name: docker images
+        run: docker images
