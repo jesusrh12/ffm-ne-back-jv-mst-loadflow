@@ -1,7 +1,20 @@
 name: Pull-azure
 on:
- label:
-  types: [created, deleted]
   push:
     branches:
       - main # or the name of your main branch
+      
+jobs: 
+  build-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        
+      - name: ecr
+        run: aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 837232691946.dkr.ecr.us-east-2.amazonaws.com
+      - name: docker pull
+        run: docker pull 837232691946.dkr.ecr.us-east-2.amazonaws.com/squad-integration:1.7
