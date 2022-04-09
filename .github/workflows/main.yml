@@ -21,6 +21,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
         
       - name: ecr 
+        uses: nada/prueba@v1
         with:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: squad-integration 
