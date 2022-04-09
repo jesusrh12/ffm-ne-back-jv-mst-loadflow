@@ -20,10 +20,12 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
         
-      - name: ecr
+      - name: ecr - pull imagen
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: squad-integration 
-        run: docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.7
+        run: |
+          aws ecr list-images --repository-name $ECR_REPOSITORY
+          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.7
       - name: docker images
         run: docker images
