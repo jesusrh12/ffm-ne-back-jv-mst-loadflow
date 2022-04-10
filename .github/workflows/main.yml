@@ -26,7 +26,7 @@ jobs:
           ECR_REPOSITORY: squad-integration    
         run:  |
           aws ecr list-images --repository-name $ECR_REPOSITORY
-          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.7
+   #       docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.7
       - name: docker images
         run: docker images
     
@@ -37,8 +37,8 @@ jobs:
     - name: 'Build and push image'
       uses: azure/docker-login@v1
       with:
-          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+          login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
     - run: |
-       docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}
+       docker build . -t ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}
