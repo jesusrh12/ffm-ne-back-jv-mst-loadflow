@@ -41,8 +41,7 @@ jobs:
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
     - run: |
-        docker login azacreu2ossd01.azurecr.io -u azacreu2ossd01 -p /KjnBk7Wn7hbvEntL6I5HBqAgvSHapds
-        docker images
+        docker login azacreu2ossd01.azurecr.io -u azacreu2ossd01 -p /KjnBk7Wn7hbvEntL6I5HBqAgvSHapd
         docker images azacreu2ossd01.azurecr.io
    #     az acr repository list -n azacreu2ossd01.azurecr.io
    #     azure aks list-images --repository-name $AZURE_REGISTRY_LOGIN_SERVER
