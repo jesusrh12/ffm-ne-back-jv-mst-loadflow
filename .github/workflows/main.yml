@@ -36,7 +36,7 @@ jobs:
     steps:
     - name: 'Build and push image'
       uses: azure/docker-login@v1
-      with:
+      env:
           login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
