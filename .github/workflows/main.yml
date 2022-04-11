@@ -41,6 +41,6 @@ jobs:
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
     - run: |
-        az acr repository list -n $login-server --output table
+        az acr repository list -n azacreu2ossd01.azurecr.io
    #     azure aks list-images --repository-name $AZURE_REGISTRY_LOGIN_SERVER
    #    docker build . -t ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}
