@@ -1,8 +1,8 @@
-name: Pull-azure
-on:
-  push:
-    branches:
-      - main # or the name of your main branch
+# name: Pull-azure
+# on:
+#  push:
+#    branches:
+#      - main # or the name of your main branch
       
 jobs: 
   build-artifact:
