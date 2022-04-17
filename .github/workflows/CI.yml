@@ -1,10 +1,10 @@
-#name: Build
-#on:
-# label:
-#  types: [created, deleted]
-#  push:
-#    branches:
-#      - main # or the name of your main branch
+name: Build
+on:
+ label:
+  types: [created, deleted]
+  push:
+    branches:
+      - main # or the name of your main branch
 
 jobs: 
    Test-sonar:
@@ -93,4 +93,15 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          
+      - name: ecr 
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: squad-integration   
+          IMAGE_TAG: ${{env.LATEST_TAG}}
+        run:  |
+          aws ecr list-images --repository-name $ECR_REPOSITORY
+          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      - name: docker images
+        run: docker images
 
