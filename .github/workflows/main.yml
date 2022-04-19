@@ -10,13 +10,12 @@ jobs:
     steps:
     - name: 'Build and push image'
       uses: azure/docker-login@v1
- #     env:
- #         login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
- #         username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
- #         password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
-    - run: |
-        docker login azacreu2ossd01.azurecr.io -u azacreu2ossd01 -p /KjnBk7Wn7hbvEntL6I5HBqAgvSHapds
-   #    docker login $AZURE_REGISTRY_LOGIN_SERVER -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
+      env:
+          login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+    - run: |     
+       docker login $AZURE_REGISTRY_LOGIN_SERVER -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
    #    docker images
    #     docker images azacreu2ossd01.azurecr.io
    #     az acr repository list -n azacreu2ossd01.azurecr.io
