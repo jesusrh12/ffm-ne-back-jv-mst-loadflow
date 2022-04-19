@@ -28,7 +28,7 @@ jobs:
           IMAGE_TAG: ${{env.LATEST_TAG}}
         run:  |
           aws ecr list-images --repository-name $ECR_REPOSITORY
-          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.12
+        #  docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.12
       - name: docker images
         run: docker images
   
@@ -37,7 +37,7 @@ jobs:
     needs: [build-image]
     steps:
     - name: 'Build and push image'
-      uses: docker-login@v1
+      uses: docker/login-action@v1
       env:
           login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
