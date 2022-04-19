@@ -1,9 +1,9 @@
-name: Build
-on:
- label:
-  types: [created, deleted]
-  push:
-    branches:
+#name: Build
+#on:
+# label:
+#  types: [created, deleted]
+#  push:
+#    branches:
       - main # or the name of your main branch
 
 jobs: 
