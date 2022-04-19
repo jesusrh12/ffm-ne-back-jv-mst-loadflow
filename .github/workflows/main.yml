@@ -27,8 +27,6 @@ jobs:
           ECR_REPOSITORY: squad-integration   
           IMAGE_TAG: ${{env.LATEST_TAG}}    
         run:  |
-          echo ${{ env.ECR_REGISTRY }}
-          echo ${{ env.ECR_REPOSITORY }}
           aws ecr list-images --repository-name $ECR_REPOSITORY
           docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.12
       - name: docker images
@@ -40,7 +38,11 @@ jobs:
           login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
-      - run: |     
+      - name: ecr 2 
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: squad-integration        
+        run: |     
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY:1.12 azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY 
    #    docker images
    #     docker images azacreu2ossd01.azurecr.io
