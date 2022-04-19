@@ -28,13 +28,13 @@ jobs:
           IMAGE_TAG: ${{env.LATEST_TAG}}    
         run:  |
           aws ecr list-images --repository-name $ECR_REPOSITORY
-          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.12
+   #       docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.12
       - name: docker images
         run: docker images
  
       - name: 'Build and push image'
         uses: azure/docker-login@v1
-        env:
+        with:
           login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }} 
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }} 
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }} 
@@ -46,9 +46,9 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: squad-integration        
         run: |     
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:1.12 $login-server/$ECR_REGISTRY/$ECR_REPOSITORY 
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:1.12 azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY 
           docker images
-          docker push $login-server/$ECR_REGISTRY/$ECR_REPOSITORY
+          docker push azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY
     #      docker push $login-server/$ECR_REGISTRY/$ECR_REPOSITORY:1.12
    #    docker images
    #     docker images azacreu2ossd01.azurecr.io
