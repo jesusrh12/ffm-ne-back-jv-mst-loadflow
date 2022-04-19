@@ -44,7 +44,7 @@ jobs:
           ECR_REPOSITORY: squad-integration        
         run: |     
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY:1.12 $login-server/$ECR_REGISTRY/$ECR_REPOSITORY 
-          docker push $login-server/$ECR_REGISTRY/$ECR_REPOSITORY
+          docker push $login-server/$ECR_REGISTRY/$ECR_REPOSITORY:1.12
    #    docker images
    #     docker images azacreu2ossd01.azurecr.io
    #     az acr repository list -n azacreu2ossd01.azurecr.io
