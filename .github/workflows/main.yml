@@ -43,9 +43,9 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: squad-integration        
         run: |     
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:1.12 azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY 
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:1.12 $login-server/$ECR_REGISTRY/$ECR_REPOSITORY 
           docker images
-          docker push azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY
+          docker push $login-server/$ECR_REGISTRY/$ECR_REPOSITORY
     #      docker push $login-server/$ECR_REGISTRY/$ECR_REPOSITORY:1.12
    #    docker images
    #     docker images azacreu2ossd01.azurecr.io
