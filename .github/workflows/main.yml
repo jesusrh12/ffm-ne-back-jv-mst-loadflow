@@ -38,6 +38,8 @@ jobs:
           login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }} >> $GITHUB_ENV
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }} >> $GITHUB_ENV
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }} >> $GITHUB_ENV
+      - name: use env var
+        run: echo ${{ env.login-serve }}
       - name: ecr 2 
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
