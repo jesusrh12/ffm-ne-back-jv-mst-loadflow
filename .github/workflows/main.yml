@@ -11,7 +11,7 @@ jobs:
     - name: 'Build and push image'
       uses: azure/docker-login@v1
       env:
-          login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
+          login-server: azacreu2ossd01.azurecr.io
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
     - run: |
