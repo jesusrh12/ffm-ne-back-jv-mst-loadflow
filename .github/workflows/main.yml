@@ -39,7 +39,7 @@ jobs:
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
       - run: |     
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:1.12 azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY 
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY/:1.12 azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY 
    #    docker images
    #     docker images azacreu2ossd01.azurecr.io
    #     az acr repository list -n azacreu2ossd01.azurecr.io
