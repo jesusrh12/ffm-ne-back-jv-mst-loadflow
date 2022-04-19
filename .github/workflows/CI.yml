@@ -4,9 +4,9 @@
 #  types: [created, deleted]
 #  push:
 #    branches:
-      - main # or the name of your main branch
+#      - main # or the name of your main branch
 
-jobs: 
+#jobs: 
    Test-sonar:
     runs-on: ubuntu-latest
     steps:
