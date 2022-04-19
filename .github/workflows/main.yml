@@ -37,7 +37,7 @@ jobs:
     needs: [build-image]
     steps:
     - name: 'Build and push image'
-      uses: azure/docker-login@v1
+      uses: docker-login@v1
       env:
           login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
