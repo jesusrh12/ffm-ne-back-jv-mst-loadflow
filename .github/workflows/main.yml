@@ -18,7 +18,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.ECR_SECRET_KEY }}
           aws-region: us-east-2        
       - name: Login to Amazon ECR
-        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
           
       - name: ecr 
@@ -28,7 +27,7 @@ jobs:
           IMAGE_TAG: ${{env.LATEST_TAG}}    
         run:  |
           aws ecr list-images --repository-name $ECR_REPOSITORY
-          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.12
+      #    docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.12
       - name: docker images
         run: docker images
  
@@ -38,10 +37,8 @@ jobs:
           login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }} 
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }} 
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}         
-      - run: |     
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:1.12 azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY 
-          docker images
-          docker push azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY
+      - name: 'Build and push image2'
+        uses: azure/docker-login@v1  
     #      docker push $login-server/$ECR_REGISTRY/$ECR_REPOSITORY:1.12
    #    docker images
    #     docker images azacreu2ossd01.azurecr.io
