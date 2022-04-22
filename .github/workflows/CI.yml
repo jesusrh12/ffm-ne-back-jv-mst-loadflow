@@ -104,4 +104,14 @@
           docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       - name: docker images
         run: docker images
+        
+      - name: 'Build and push image'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }} 
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }} 
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}         
+         - name: 'Build and push image2'
+        uses: azure/docker-login@v1  
+    #      docker push $login-server/$ECR_REGISTRY/$ECR_REPOSITORY:1.12
 
