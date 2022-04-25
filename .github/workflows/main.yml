@@ -6,8 +6,63 @@ on:
       
 jobs:  
 
-  build-image:
+   Test-sonar:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2         
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Test
+        env:
+          GITHUB_USERNAME: ${{ secrets.USER_NAME }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        #run: mvn --settings settings.xml clean test
+        run: mvn source:jar clean test -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-lib-commons'
+      - name: Lista
+        run: cd target | ls -la
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          LC_ALL: "ru_RU.UTF-8"
+      - name: SonarQube Quality Gate check
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        env:
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          scanMetadataReportFile: .scannerwork/report-task.txt
+          # Force to fail step after specific time
+          timeout-minutes: 2
+   
+   publish-artifact:
+    runs-on: ubuntu-latest
+    needs: [Test-sonar]
+    permissions: 
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Set up Maven Settings for deploy
+        uses: s4u/maven-settings-action@v2.1.1
+      - name: Publish package
+      #  run: mvn --batch-mode deploy
+        env:
+          GITHUB_USERNAME: ${{ secrets.USER_NAME }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+       # run: mvn --settings settings.xml --file pom.xml deploy
+       # run: mvn clean source:jar deploy -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -Dmaven.install.skip=true -DdeplyAtEnd=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-lib-commons'
+        run: mvn source:jar deploy -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -Dmaven.source.includePom=true -DaltDeploymentRepository='github::default::https://maven.pkg.github.com/jesusrh12/ffm-ne-back-jv-mst-loadflow'
+  
+   build-image:
+    runs-on: ubuntu-latest
+    needs: [Test-sonar, publish-artifact ]
     steps:
       - uses: actions/checkout@v2
       
@@ -34,30 +89,6 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: squad-integration 
           IMAGE_TAG: ${{env.LATEST_TAG}}
-        run:  |
-          aws ecr list-images --repository-name $ECR_REPOSITORY
-          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      - name: docker images
-        run: docker images
- 
-      - name: 'Build and push image'
-        uses: azure/docker-login@v1
-        with:
-          login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }} 
-          username: ${{ secrets.AZURE_REGISTRY_USERNAME }} 
-          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}         
-      - name: ecr 2 
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: squad-integration 
-          IMAGE_TAG: ${{env.LATEST_TAG}}
-        run: |     
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker images
-          docker push azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-    #      docker push $login-server/$ECR_REGISTRY/$ECR_REPOSITORY:1.12
-   #    docker images
-   #     docker images azacreu2ossd01.azurecr.io
-   #     az acr repository list -n azacreu2ossd01.azurecr.io
-   #     azure aks list-images --repository-name $AZURE_REGISTRY_LOGIN_SERVER
-   #    docker build . -t ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:loadflow$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:loadflow$IMAGE_TAG
