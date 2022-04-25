@@ -10,7 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-    
+      
+      - name: versiones tag
+        run: git fetch --prune --unshallow --tags
+      - name: latest tag
+        run: echo "LATEST_TAG=$(git describe --tag --abbrev=0 | cut -c 2-)" >> $GITHUB_ENV
+      - name: use env var
+        run: echo ${{ env.LATEST_TAG }}
+
       - name: Configure AWS Credentials for build and deploy
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -18,13 +25,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.ECR_SECRET_KEY }}
           aws-region: us-east-2        
       - name: Login to Amazon ECR
+        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-          
-      - name: ecr 
+        
+      - name: Build, Tag, and Push the Image to Amazon ECR
+        id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: squad-integration   
-          IMAGE_TAG: ${{env.LATEST_TAG}}    
+          ECR_REPOSITORY: squad-integration 
+          IMAGE_TAG: ${{env.LATEST_TAG}}
         run:  |
           aws ecr list-images --repository-name $ECR_REPOSITORY
           docker pull $ECR_REGISTRY/$ECR_REPOSITORY:1.12
