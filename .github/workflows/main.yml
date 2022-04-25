@@ -37,8 +37,14 @@ jobs:
           login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }} 
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }} 
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}         
-      - name: 'Build and push image2'
-        uses: azure/docker-login@v1  
+      - name: ecr 2 
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: squad-integration        
+        run: |     
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:1.12 azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY 
+          docker images
+          docker push azacreu2ossd01.azurecr.io/$ECR_REGISTRY/$ECR_REPOSITORY
     #      docker push $login-server/$ECR_REGISTRY/$ECR_REPOSITORY:1.12
    #    docker images
    #     docker images azacreu2ossd01.azurecr.io
